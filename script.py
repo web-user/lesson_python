@@ -15,26 +15,158 @@
 
 import turtle
 
-turtle.shape('triangle')
-turtle.forward(300)
-turtle.stamp()
-turtle.backward(300)
-turtle.left(180)
+# def divide_three( length_line ):
+# 	return int(length_line / 3)
 
-turtle.stamp()
-turtle.backward(300)
+# def tringle_interior(len_imterion):
 
 
-turtle.stamp()
-turtle.right(90)
 
-turtle.forward(300)
-turtle.stamp()
-turtle.left(135)
-turtle.forward(410)
+# def create_tringle(length_line, ):
 
-turtle.end_fill()
-turtle.exitonclick()
+
+# turtle.shape('triangle')
+# turtle.forward(600)
+# turtle.stamp()
+
+# turtle.left(120)
+# turtle.forward(600)
+# turtle.stamp()
+
+# turtle.left(120)
+# turtle.forward(600)
+# turtle.stamp()
+
+# turtle.left(180)
+# turtle.forward(200)
+# turtle.stamp()
+
+# turtle.right(60)
+# turtle.forward(200)
+# turtle.stamp()
+
+# turtle.right(120)
+# turtle.forward(200)
+# turtle.stamp()
+
+# turtle.right(120)
+# turtle.forward(200)
+# turtle.stamp()
+
+# turtle.right(120)
+# turtle.forward(400)
+# turtle.stamp()
+
+# turtle.right(120)
+# turtle.forward(200)
+# turtle.stamp()
+
+# turtle.right(120)
+# turtle.forward(200)
+# turtle.stamp()
+
+# turtle.forward(200)
+# turtle.stamp()
+
+# turtle.right(120)
+# turtle.forward(200)
+# turtle.stamp()
+
+# turtle.right(120)
+# turtle.forward(200)
+# turtle.stamp()
+
+
+
+# turtle.stamp()
+# turtle.right(90)
+
+# turtle.forward(300)
+# turtle.stamp()
+# turtle.left(135)
+# turtle.forward(410)
+
+# turtle.end_fill()
+# turtle.exitonclick()
+
+
+
+
+def divide_three( length_line ):
+	return int(length_line / 3)
+
+def next_step(len_imterion, line_radius):
+	turtle.right(line_radius)
+	turtle.forward(len_imterion)
+	turtle.stamp()
+
+def next_step_left(length_line, line_radius):
+	turtle.left(line_radius)
+	turtle.forward(length_line)
+	turtle.stamp()
+
+
+
+def tringle_interior(len_imterion, line_radius):
+	next_step(len_imterion, line_radius)
+
+	next_step(len_imterion, line_radius)
+
+	turtle.right(line_radius)
+	turtle.forward(400)
+	turtle.stamp()
+
+	next_step(len_imterion, line_radius)
+
+	next_step(len_imterion, line_radius)
+
+	turtle.forward(len_imterion)
+	turtle.stamp()
+
+	next_step(len_imterion, line_radius)
+
+	next_step(len_imterion, line_radius)
+
+
+def create_tringle(length_line, line_radius):
+	interior = divide_three( length_line )
+
+	turtle.shape('triangle')
+	turtle.forward(length_line)
+	turtle.stamp()
+
+	next_step_left(length_line, line_radius)
+	next_step_left(length_line, line_radius)
+
+	turtle.left(180)
+	turtle.forward(interior)
+	turtle.stamp()
+
+	turtle.right(60)
+	turtle.forward(interior)
+	turtle.stamp()
+
+	tringle_interior(interior, line_radius)
+	turtle.end_fill()
+	turtle.exitonclick()
+
+
+create_tringle(600, 120)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # def drawTriangle(points,color,myTurtle):
