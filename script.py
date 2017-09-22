@@ -92,68 +92,66 @@ import turtle
 
 
 
-def divide_three( length_line ):
-	return int(length_line / 3)
+# def divide_three( length_line ):
+# 	return int(length_line / 3)
 
-def next_step(len_imterion, line_radius):
-	turtle.right(line_radius)
-	turtle.forward(len_imterion)
-	turtle.stamp()
+# def next_step(len_imterion, line_radius):
+# 	turtle.right(line_radius)
+# 	turtle.forward(len_imterion)
+# 	turtle.stamp()
 
-def next_step_left(length_line, line_radius):
-	turtle.left(line_radius)
-	turtle.forward(length_line)
-	turtle.stamp()
-
-
-
-def tringle_interior(len_imterion, line_radius):
-	next_step(len_imterion, line_radius)
-
-	next_step(len_imterion, line_radius)
-
-	turtle.right(line_radius)
-	turtle.forward(400)
-	turtle.stamp()
-
-	next_step(len_imterion, line_radius)
-
-	next_step(len_imterion, line_radius)
-
-	turtle.forward(len_imterion)
-	turtle.stamp()
-
-	next_step(len_imterion, line_radius)
-
-	next_step(len_imterion, line_radius)
+# def next_step_left(length_line, line_radius):
+# 	turtle.left(line_radius)
+# 	turtle.forward(length_line)
+# 	turtle.stamp()
 
 
-def create_tringle(length_line, line_radius):
-	interior = divide_three( length_line )
 
-	turtle.shape('triangle')
-	turtle.forward(length_line)
-	turtle.stamp()
+# def tringle_interior(len_imterion, line_radius):
+# 	next_step(len_imterion, line_radius)
 
-	next_step_left(length_line, line_radius)
-	next_step_left(length_line, line_radius)
+# 	next_step(len_imterion, line_radius)
 
-	turtle.left(180)
-	turtle.forward(interior)
-	turtle.stamp()
+# 	turtle.right(line_radius)
+# 	turtle.forward(400)
+# 	turtle.stamp()
 
-	turtle.right(60)
-	turtle.forward(interior)
-	turtle.stamp()
+# 	next_step(len_imterion, line_radius)
 
-	tringle_interior(interior, line_radius)
-	turtle.end_fill()
-	turtle.exitonclick()
+# 	next_step(len_imterion, line_radius)
 
+# 	turtle.forward(len_imterion)
+# 	turtle.stamp()
 
-create_tringle(600, 120)
+# 	next_step(len_imterion, line_radius)
+
+# 	next_step(len_imterion, line_radius)
 
 
+# def create_tringle(length_line, line_radius):
+# 	interior = divide_three( length_line )
+
+# 	turtle.shape('triangle')
+# 	turtle.forward(length_line)
+# 	turtle.stamp()
+
+# 	next_step_left(length_line, line_radius)
+# 	next_step_left(length_line, line_radius)
+
+# 	turtle.left(180)
+# 	turtle.forward(interior)
+# 	turtle.stamp()
+
+# 	turtle.right(60)
+# 	turtle.forward(interior)
+# 	turtle.stamp()
+
+# 	tringle_interior(interior, line_radius)
+# 	turtle.end_fill()
+# 	turtle.exitonclick()
+
+
+# create_tringle(600, 120)
 
 
 
@@ -163,10 +161,83 @@ create_tringle(600, 120)
 
 
 
+# def draw_sierpinski(length,depth):
+#     if depth==0:
+#         turtle.forward(length)
+#         turtle.left(120)
+
+#         turtle.forward(length)
+#         turtle.left(120)
+
+#         turtle.forward(length)
+#         turtle.left(120)
+#     else:
+#         draw_sierpinski(length/2,depth-1)
+#         turtle.forward(length/2)
+#         draw_sierpinski(length/2,depth-1)
+#         # turtle.backward(length/2)
+#         # turtle.left(60)
+#         # turtle.forward(length/2)
+#         # turtle.right(60)
+#         # draw_sierpinski(length/2,depth-1)
+
+
+# draw_sierpinski(500,1)
+# turtle.exitonclick()
+
+# def element_triangle(length_line):
+# 	for n in range(0,3):
+# 		turtle.forward(length_line/2)
+# 		turtle.left(120)
+
+# def create_tirngle(length_line):
+# 	element_triangle(length_line)
+# 	turtle.forward(length_line/2)
+# 	element_triangle(length_line)
+# 	turtle.left(60)
+# 	turtle.forward(length_line/2)
+# 	turtle.left(60)
+# 	element_triangle(length_line)
+
+
+# create_tirngle(600)
+# turtle.exitonclick()
+
+# list_num = 'vasa ivan'.split()
+
+
+# print(list_num)
+
+	# for i in range(len(st) - len(sub)):
+	# 	count += 1
+	# 	count_w[sub] = count
+	# return count_w
+import re
+
+def search(st):
+	document_text = st
+	text_string = document_text.lower()
+	match_pattern = re.findall(  r'\w*', text_string)
+	frequency = { }
+	word_ret = {}
+	for word in match_pattern:
+		count = frequency.get(word,0)
+		frequency[word] = count + 1
+
+	frequency_list = frequency.keys()
+
+	for words in frequency_list:
+		word_ret[words] = frequency[words] 
+	
+	return word_ret
+
+	# return count_w
+
+res = search('hello hell hell 12 12 wo e worl del')
 
 
 
-
+print(res)
 
 
 # def drawTriangle(points,color,myTurtle):
@@ -195,7 +266,7 @@ create_tringle(600, 120)
 # 	myTurtle = turtle.Turtle()
 # 	myWin = turtle.Screen()
 # 	myPoints = [[-100,-50],[0,100],[100,-50]]
-# 	sierpinski(myPoints,3,myTurtle)
+# 	sierpinski(myPoints,2,myTurtle)
 # 	myWin.exitonclick()
 
 # main()
