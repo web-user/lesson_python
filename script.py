@@ -264,17 +264,17 @@ home()
 right(90)
 # color('yellow')
 def segment(percentages, radius):
-    rollingPercent = 0
-    for percent in percentages:
-        segment = percent * 360
-        rollingPercent += segment
-        color('yellow')
-        setheading(rollingPercent)
-        # color(clr[int_cl])
-        pendown()
-        forward(radius)
-        penup()
-        home()
+	rollingPercent = 0
+	for percent in percentages:
+		segment = percent * 360
+		rollingPercent += segment
+		color('yellow')
+		setheading(rollingPercent)
+		# color(clr[int_cl])
+		pendown()
+		forward(radius)
+		penup()
+		home()
 
 segment(percentages,radius)
 
