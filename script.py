@@ -13,7 +13,7 @@
 # >>> turtle.shape('triangle')
 # >>> turtle.shapesize(5,5,6)
 
-import turtle
+# import turtle
 
 # def divide_three( length_line ):
 # 	return int(length_line / 3)
@@ -159,7 +159,7 @@ import turtle
 
 
 
-
+"""Triangle"""
 
 # def draw_sierpinski(length,depth):
 #     if depth==0:
@@ -175,33 +175,21 @@ import turtle
 #         draw_sierpinski(length/2,depth-1)
 #         turtle.forward(length/2)
 #         draw_sierpinski(length/2,depth-1)
-#         # turtle.backward(length/2)
-#         # turtle.left(60)
-#         # turtle.forward(length/2)
-#         # turtle.right(60)
-#         # draw_sierpinski(length/2,depth-1)
+
+#         turtle.backward(length/2)
+#         turtle.left(60)
+#         turtle.forward(length/2)
+#         turtle.right(60)
+
+#         draw_sierpinski(length/2,depth-1)
+#         turtle.left(60)
+#         turtle.backward(length/2)
+#         turtle.right(60)
 
 
-# draw_sierpinski(500,1)
+# draw_sierpinski(500,2)
 # turtle.exitonclick()
 
-# def element_triangle(length_line):
-# 	for n in range(0,3):
-# 		turtle.forward(length_line/2)
-# 		turtle.left(120)
-
-# def create_tirngle(length_line):
-# 	element_triangle(length_line)
-# 	turtle.forward(length_line/2)
-# 	element_triangle(length_line)
-# 	turtle.left(60)
-# 	turtle.forward(length_line/2)
-# 	turtle.left(60)
-# 	element_triangle(length_line)
-
-
-# create_tirngle(600)
-# turtle.exitonclick()
 
 # list_num = 'vasa ivan'.split()
 
@@ -212,7 +200,13 @@ import turtle
 	# 	count += 1
 	# 	count_w[sub] = count
 	# return count_w
+
+"""Turtle Graphics"""
+
 import re
+from turtle import *
+
+turtle = Turtle()
 
 def search(st):
 	document_text = st
@@ -231,42 +225,59 @@ def search(st):
 	
 	return word_ret
 
-	# return count_w
 
-res = search('hello hell hell 12 12 wo e worl del')
-
+res = search('hello hell hell  12')
 
 
-print(res)
+# (7/ 14) * 1 = 0.5
+
+per = []
+
+for item in res:
+	if item != '':
+		per.append(res[item])
+
+sum_str = sum(per)
+
+def cal_list( x, y ):
+	new_l = []
+	for i in x:
+		my_r = i / y * 1
+		new_l.append(my_r)
+	return new_l
+
+percentages = cal_list(per, sum_str)
+
+radius = 200
+
+color_num = ['blue','red','green','white','yellow', 'violet','orange']
+
+penup()
+forward(radius)
+left(90)
+pendown()
+# color('palegreen')
+begin_fill()
+circle(radius)
+end_fill()
+home()
+right(90)
+# color('yellow')
+def segment(percentages, radius):
+    rollingPercent = 0
+    for percent in percentages:
+        segment = percent * 360
+        rollingPercent += segment
+        color('yellow')
+        setheading(rollingPercent)
+        # color(clr[int_cl])
+        pendown()
+        forward(radius)
+        penup()
+        home()
+
+segment(percentages,radius)
+
+exitonclick()
 
 
-# def drawTriangle(points,color,myTurtle):
-# 	myTurtle.color(color)
-# 	myTurtle.up()
-# 	myTurtle.goto(points[0][0],points[0][1])
-# 	myTurtle.down()
-# 	myTurtle.begin_fill()
-# 	myTurtle.goto(points[1][0],points[1][1])
-# 	myTurtle.goto(points[2][0],points[2][1])
-# 	myTurtle.goto(points[0][0],points[0][1])
-# 	myTurtle.end_fill()
-
-# def getMid(p1,p2):
-# 	return ( (p1[0]+p2[0]) / 2, (p1[1] + p2[1]) / 2)
-
-# def sierpinski(points,degree,myTurtle):
-# 	colormap = ['blue','red','green','white','yellow', 'violet','orange']
-# 	drawTriangle(points,colormap[degree],myTurtle)
-# 	if degree > 0:
-# 		sierpinski([points[0], getMid(points[0], points[1]), getMid(points[0], points[2])], degree-1, myTurtle)
-# 		sierpinski([points[1], getMid(points[0], points[1]), getMid(points[1], points[2])], degree-1, myTurtle)
-# 		sierpinski([points[2], getMid(points[2], points[1]), getMid(points[0], points[2])], degree-1, myTurtle)
-
-# def main():
-# 	myTurtle = turtle.Turtle()
-# 	myWin = turtle.Screen()
-# 	myPoints = [[-100,-50],[0,100],[100,-50]]
-# 	sierpinski(myPoints,2,myTurtle)
-# 	myWin.exitonclick()
-
-# main()
