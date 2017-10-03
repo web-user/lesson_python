@@ -203,81 +203,175 @@
 
 """Turtle Graphics"""
 
-import re
-from turtle import *
+# import re
+# from turtle import *
 
-turtle = Turtle()
+# turtle = Turtle()
 
-def search(st):
-	document_text = st
-	text_string = document_text.lower()
-	match_pattern = re.findall(  r'\w*', text_string)
-	frequency = { }
-	word_ret = {}
-	for word in match_pattern:
-		count = frequency.get(word,0)
-		frequency[word] = count + 1
+# def search(st):
+# 	document_text = st
+# 	text_string = document_text.lower()
+# 	match_pattern = re.findall(  r'\w*', text_string)
+# 	frequency = { }
+# 	word_ret = {}
+# 	for word in match_pattern:
+# 		count = frequency.get(word,0)
+# 		frequency[word] = count + 1
 
-	frequency_list = frequency.keys()
+# 	frequency_list = frequency.keys()
 
-	for words in frequency_list:
-		word_ret[words] = frequency[words] 
+# 	for words in frequency_list:
+# 		word_ret[words] = frequency[words] 
 	
-	return word_ret
+# 	return word_ret
 
 
-res = search('hello hell hell  12')
+# res = search('hello hell hell  12')
 
 
-# (7/ 14) * 1 = 0.5
+# # (7/ 14) * 1 = 0.5
 
-per = []
+# per = []
 
-for item in res:
-	if item != '':
-		per.append(res[item])
+# for item in res:
+# 	if item != '':
+# 		per.append(res[item])
 
-sum_str = sum(per)
+# sum_str = sum(per)
 
-def cal_list( x, y ):
-	new_l = []
-	for i in x:
-		my_r = i / y * 1
-		new_l.append(my_r)
-	return new_l
+# def cal_list( x, y ):
+# 	new_l = []
+# 	for i in x:
+# 		my_r = i / y * 1
+# 		new_l.append(my_r)
+# 	return new_l
 
-percentages = cal_list(per, sum_str)
+# percentages = cal_list(per, sum_str)
 
-radius = 200
+# radius = 200
 
-color_num = ['blue','red','green','white','yellow', 'violet','orange']
+# color_num = ['blue','red','green','white','yellow', 'violet','orange']
 
-penup()
-forward(radius)
-left(90)
-pendown()
-# color('palegreen')
-begin_fill()
-circle(radius)
-end_fill()
-home()
-right(90)
-# color('yellow')
-def segment(percentages, radius):
-	rollingPercent = 0
-	for percent in percentages:
-		segment = percent * 360
-		rollingPercent += segment
-		color('yellow')
-		setheading(rollingPercent)
-		# color(clr[int_cl])
-		pendown()
-		forward(radius)
-		penup()
-		home()
+# penup()
+# forward(radius)
+# left(90)
+# pendown()
+# # color('palegreen')
+# begin_fill()
+# circle(radius)
+# end_fill()
+# home()
+# right(90)
+# # color('yellow')
+# def segment(percentages, radius):
+# 	rollingPercent = 0
+# 	for percent in percentages:
+# 		segment = percent * 360
+# 		rollingPercent += segment
+# 		color('yellow')
+# 		setheading(rollingPercent)
+# 		# color(clr[int_cl])
+# 		pendown()
+# 		forward(radius)
+# 		penup()
+# 		home()
 
-segment(percentages,radius)
+# segment(percentages,radius)
+
+# exitonclick()
+
+"""Gold pyramid """
+
+# def golden_pyramid_d(triangle):
+# 	tr = [0, 1, 2, 3, 4, 5, 6] # copy
+# 	for i in range(len(tr) - 2, -1, -1):
+# 		for j in range(i + 1):
+# 			tr[i][j] += max(tr[i + 1][j], tr[i + 1][j + 1])
+# 	return tr
+
+# print(golden_pyramid_d(range(7)))
+
+
+
+# def fib1(n):
+# 	assert n >= 0
+# 	return n if n <= 1 else fib1(n - 1) + fib1(n - 2)
+
+# n = [1, 4, 7, 2, 5]
+
+# n.sort(reverse=True)
+
+# print(n)
+
+# print(fib1(5))
+
+"""Fractal flame"""
+
+from turtle import *
+import random
+
+
+
+ob = Turtle()
+
+
+
+class FracFl:
+	def __init__(self, x= 0, y = 0):
+		self.x = x
+		self.y = y
+
+	def __mul__(self, other):
+		if isinstance( other, (int, float) ):
+			return FracFl(self.x * other, self.y * other)
+		elif isinstance(other, __class__):
+			return FracFl(self.x * other.x, self.y * other.y)
+
+v = FracFl(2, 5)
+v1 = FracFl(3, 6)
+
+v2 = v * v1
+
+print(v2.x)
+
+
+ob.speed(3)
+
+cl = ['red', 'green', 'blue']
+
+def draw_fractal(length, angle, x, y):
+	ob.up()
+	ob.goto(x, y)
+	ob.down()
+
+
+	c = 0
+	ob.begin_fill()
+	for i in range(5):
+
+		x = random.randint(-100, -1)
+		y = random.randint(1, 100)
+
+		x = (x ** 2 + y ** 2) // x
+		y = (x ** 2 + y ** 2) // x
+
+
+
+		print(x)
+		print(y)
+
+		ob.fillcolor(cl[c])
+		ob.goto(x, y)
+		# x += 1
+		# y += 1
+		c += 1
+		if c >2:
+			c = 0
+	ob.end_fill()
+
+
+
+
+draw_fractal(200, 120, -30, 40)
 
 exitonclick()
-
-
