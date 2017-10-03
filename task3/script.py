@@ -1,76 +1,17 @@
-"""Turtle Graphics"""
+def golden_pyramid(triangle, row=0, column=0, total=0):
+	if row == len(triangle) - 1:
+		return total + triangle[row][column]
+	return max(golden_pyramid(triangle, row + 1, column, total + triangle[row][column]),
+			   golden_pyramid(triangle, row + 1, column + 1, total + triangle[row][column]))
 
-import re
-from turtle import *
+def main():
+	# count 18
+	param = [[9,], [2, 2], [3, 3, 3],[4, 4, 4, 4]]
 
-turtle = Turtle()
-
-def search(st):
-	document_text = st
-	text_string = document_text.lower()
-	match_pattern = re.findall(  r'\w*', text_string)
-	frequency = { }
-	word_ret = {}
-	for word in match_pattern:
-		count = frequency.get(word,0)
-		frequency[word] = count + 1
-
-	frequency_list = frequency.keys()
-
-	for words in frequency_list:
-		word_ret[words] = frequency[words] 
-	
-	return word_ret
+	# count 23
+	param2 = [[1,], [2, 3], [3, 3, 1], [3, 1, 5, 4], [3, 1, 3, 1, 3], [2, 2, 2, 2, 2, 2], [5, 6, 4, 5, 6, 4, 3]]
+	print(golden_pyramid(param))
 
 
-res = search('hello hell hell  12 web')
-
-
-per = []
-
-for item in res:
-	if item != '':
-		per.append(res[item])
-
-sum_str = sum(per)
-
-def cal_list( x, y ):
-	new_l = []
-	for i in x:
-		my_r = i / y * 1
-		new_l.append(my_r)
-	return new_l
-
-percentages = cal_list(per, sum_str)
-
-radius = 200
-
-color_num = ['blue','red','green','white','yellow', 'violet','orange']
-
-penup()
-forward(radius)
-left(90)
-pendown()
-# color('palegreen')
-begin_fill()
-circle(radius)
-end_fill()
-home()
-right(90)
-# color('yellow')
-def segment(percentages, radius):
-	rollingPercent = 0
-	for percent in percentages:
-		segment = percent * 360
-		rollingPercent += segment
-		color('yellow')
-		setheading(rollingPercent)
-		# color(clr[int_cl])
-		pendown()
-		forward(radius)
-		penup()
-		home()
-
-segment(percentages,radius)
-
-exitonclick()
+if __name__ == '__main__':
+	main()
