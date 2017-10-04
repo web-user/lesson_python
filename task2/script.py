@@ -1,58 +1,159 @@
-"""Turtle Graphics"""
-from turtle import *
+import turtle
+import argparse
 
-RADIUS= 200
-radius = 200
-turtle = Turtle()
+# parse args for run program
+parser = argparse.ArgumentParser(description="For this you can use only this arguments")
+parser.add_argument('-t', '--type', help='Type of nonlinear transformation.Available types:\n'
+                                         'sectors, rays', required=True)
+parser.add_argument('-s', '--string', help='String of type \'sting more\' . Default value is: \'Hello world python cool hello\'')
 
 
-def get_words_percentage(text):
-	words_count = {}
-	words = text.split(' ')
-	for word in words:
-		words_count[word] = words_count.get(word, 0) + 1 
-	return words_count
+INPUT_STR = "Hello world python cool hello"
+CIRCLE_RADIUS = 100
+TITLE_X = -300
+TITLE_Y = 250
+TITLE_PEN_SIZE = 2
+LEGEND_CIRCLE_RADIUS = 7
+LEGEND_CIRCLE_X = CIRCLE_RADIUS+50
+LEGEND_CIRCLE_Y = CIRCLE_RADIUS*2+3
+LEGEND_DESC_X = CIRCLE_RADIUS+80
+LEGEND_DESC_Y = CIRCLE_RADIUS*2+5
+MAX_DEGREE = 360
+COLORS = ["red", "green", "blue", "orange", "violet", "yellow", "brown"]
+RAYS_LEN = 100
+RAYS_CIRCLE_RADIUS = 2
 
-#words_count.values()
-#words_count.keys()
 
-res = get_words_percentage('hello hell hell  12 web')
-#res = {'hello': 1, 'hell': 2, '12': 1, 'web':1} 
+def get_uniq_words(text):
+    words_count = {}
+    words = text.split(' ')
+    for word in words:
+        words_count[word] = words_count.get(word, 0) + 1
+    return words_count
 
-per = [word_count for word, word_count in res.items() if word ]
+def get_word_perc(str):
+    words_perc = get_uniq_words(str)
+    all_words = sum((word_count for word, word_count in words_perc.items() if word ))
 
-sum_str = sum(per)
+    for word, perc in words_perc.items():
+        perc /= all_words
+        words_perc[word] = perc
+    return words_perc
 
-percentages = [word_count / sum_str for word_count in per]
 
-#percentages = cal_list(per, sum_str)
+def draw_title(str, t):
+    t.penup()
+    t.pencolor("black")
+    t.pensize(TITLE_PEN_SIZE)
+    t.goto(TITLE_X, TITLE_Y)
+    t.pendown()
+    t.write("Input text: '"+str+"'")
+    t.penup()
+    t.home()
 
-color_num = ['blue','red','green','white','yellow', 'violet','orange']
 
-penup()
-forward(radius)
-left(90)
-pendown()
-# color('palegreen')
-begin_fill()
-circle(radius)
-end_fill()
-home()
-right(90)
-# color('yellow')
-def segment(percentages, radius):
-	rollingPercent = 0
-	for percent in percentages:
-		rollingPercent  += percent * 360
-		
-		color('yellow')
-		setheading(rollingPercent)
-		# color(clr[int_cl])
-		pendown()
-		forward(radius)
-		penup()
-		home()
+def draw_legend(uniq_words, t):
+    step = 0
+    current_color = -1
+    for key, val in uniq_words.items():
+        t.penup()
+        t.goto(LEGEND_CIRCLE_X, LEGEND_CIRCLE_Y - step)
+        current_color += 1
+        if current_color > len(COLORS):
+            current_color = 0
+        t.color(COLORS[current_color])
+        t.begin_fill()
+        t.circle(LEGEND_CIRCLE_RADIUS)
+        t.end_fill()
+        t.goto(LEGEND_DESC_X, LEGEND_DESC_Y - step)
+        str = "%s - %s time(s)" % (key,val)
+        t.write(str)
+        step += 30
 
-segment(percentages,radius)
 
-exitonclick()
+
+
+
+def draw_sectors(str, t):
+    draw_title(str, t)
+    str = str.lower()
+
+    word_percentage = get_word_perc(str)
+    word_angle = dict()
+    for word, perc in word_percentage.items():
+        word_angle[word] = MAX_DEGREE*perc
+
+    t.color("black")
+    t.begin_fill()
+    t.circle(CIRCLE_RADIUS)
+    t.end_fill()
+
+    current_perc = 0
+    current_color = -1
+    for word_perc in word_angle.values():
+        current_perc += word_perc
+        current_color += 1
+        if current_color > len(COLORS):
+            current_color = 0
+        t.color(COLORS[current_color])
+        t.begin_fill()
+        t.circle(CIRCLE_RADIUS, word_perc)
+        t.goto(0,CIRCLE_RADIUS)
+        t.end_fill()
+        t.penup()
+        t.home()
+        t.circle(CIRCLE_RADIUS, current_perc)
+    draw_legend(get_uniq_words(str), t)
+
+
+def draw_rays(str, t):
+    draw_title(str, t)
+    str = str.lower()
+    current_color = -1
+    uniq_words = get_uniq_words(str)
+    uniq_words_count = len(uniq_words)
+    i=0
+    for num in uniq_words.values():
+        t.home()
+        i += 1
+        current_color += 1
+        if current_color > len(COLORS):
+            current_color = 0
+        t.color(COLORS[current_color])
+        t.pendown()
+        t.rt(MAX_DEGREE/uniq_words_count*i)
+        for j in range(num):
+            t.fd(RAYS_LEN)
+            t.circle(RAYS_CIRCLE_RADIUS)
+        t.penup()
+    draw_legend(get_uniq_words(str), t)
+
+
+def init(INPUT_STR):
+    args = parser.parse_args()
+    type_draw = args.type  # set type of nonlinear transformation
+    string_word = args.string
+    if string_word:
+        INPUT_STR = args.string
+
+    draw = dict(sectors=draw_sectors, rays=draw_rays)
+
+    if type_draw in ('sectors', 'rays'):
+
+        Turtle = turtle.Turtle()
+
+        if type_draw == 'sectors':
+            draw['sectors'](INPUT_STR, Turtle)
+
+        if type_draw == 'rays':
+                draw['rays'](INPUT_STR, Turtle)
+
+        turtle.exitonclick()
+    else:
+        print("Please set correct type of nonlinear transformation\nFor get help run this scripts with parameter -h")
+
+
+
+
+if __name__ == "__main__":
+    init(INPUT_STR)
