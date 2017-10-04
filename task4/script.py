@@ -66,27 +66,7 @@ YMAX = 1
 def calculate(win, my_turtle, f_type, iter_num, points_count):
     calculate = MainCalculate(my_turtle)
     win.bgcolor("#c5f079")
-    
-    for i in range(iter_num):
-        # generate coefficients for affine transformation
-        a = random.random()
-        d = random.uniform(a * a, 1.0)
-        b = random.random()
-        e = random.uniform(b * b, 1.0)
-        c = random.uniform(-1.5, 1.5)
-        f = random.uniform(-1.5, 1.5)
 
-        # run calculations and drawing
-        for j in range(points_count):
-            # generate x & y for nonlinear transformation
-            newx = random.uniform(XMIN, XMAX)
-            newy = random.uniform(YMIN, YMAX)
-            x = a * newx + b * newy + c
-            y = d * newx + e * newy + f
-            # apply random color
-            my_turtle.pencolor(calculate.get_color())
-            # get type of nonlinear transformation
-            calculate.all_cal(f_type, x, y)
 
 
 def main():
@@ -95,30 +75,6 @@ def main():
     args = parser.parse_args()
     f_type = args.type  # set type of nonlinear transformation
 
-    # set number of iterations
-    if args.iter_num is not None:
-        iter_num = args.iter_num
-    else:
-        iter_num = 7
-
-    # set points count for 1 iteration
-    if args.points_count is not None:
-        points_count = args.points_count
-    else:
-        points_count = 150
-
-    # check type of nonlinear transformation
-    if f_type in ("sinus", "heart", "spherical", "polar", "disk"):
-        win = turtle.Screen()
-        my_turtle = turtle.Turtle()
-        my_turtle.screen.colormode(255)
-        my_turtle.speed(0)
-
-        # call function for draw fractal flame
-        calculate(win, my_turtle, f_type, iter_num, points_count)
-        win.exitonclick()
-    else:
-        print("Please set correct type of nonlinear transformation\nFor get help run this scripts with parameter -h")
 
 
 if __name__ == '__main__':
