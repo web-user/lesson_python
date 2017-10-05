@@ -63,7 +63,7 @@ def draw_legend(uniq_words, t):
         t.circle(LEGEND_CIRCLE_RADIUS)
         t.end_fill()
         t.goto(LEGEND_DESC_X, LEGEND_DESC_Y - step)
-        str = "%s - %s time(s)" % (key,val)
+        str = "{} - {} time(s)".format(key, val)
         t.write(str)
         step += 30
 

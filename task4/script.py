@@ -13,6 +13,11 @@ parser.add_argument('-i', '--iter_num', type=int, help='Number of iterations. De
 parser.add_argument('-p', '--points_count', type=int,
                     help="Number of points for 1 iteration. More points - best picture. Default value is: 150")
 
+XMIN = -1.777
+XMAX = 1.777
+YMIN = -1
+YMAX = 1
+
 class MainCalculate:
 
     def __init__(self, turtle, x=0, y=0):
@@ -58,11 +63,6 @@ class MainCalculate:
     def call_draw(self, f_type, x, y):
         getattr(self, f_type)(x, y)
 
-XMIN = -1.777
-XMAX = 1.777
-YMIN = -1
-YMAX = 1
-# calculations for drawing
 
 class Figure:
     def __init__(self):
