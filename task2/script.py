@@ -7,7 +7,6 @@ parser.add_argument('-t', '--type', help='Type of nonlinear transformation.Avail
                                          'sectors, rays', required=True)
 parser.add_argument('-s', '--string', help='String of type \'sting more\' . Default value is: \'Hello world python cool hello\'')
 
-
 INPUT_STR = "Hello world python cool hello"
 CIRCLE_RADIUS = 100
 TITLE_X = -300
@@ -23,10 +22,9 @@ COLORS = ["red", "green", "blue", "orange", "violet", "yellow", "brown"]
 RAYS_LEN = 100
 RAYS_CIRCLE_RADIUS = 2
 
-
 def get_uniq_words(text):
     words_count = {}
-    words = text.split(' ')
+    words = text.split()
     for word in words:
         words_count[word] = words_count.get(word, 0) + 1
     return words_count
@@ -40,7 +38,6 @@ def get_word_perc(str):
         words_perc[word] = perc
     return words_perc
 
-
 def draw_title(str, t):
     t.penup()
     t.pencolor("black")
@@ -50,7 +47,6 @@ def draw_title(str, t):
     t.write("Input text: '"+str+"'")
     t.penup()
     t.home()
-
 
 def draw_legend(uniq_words, t):
     step = 0
@@ -69,10 +65,6 @@ def draw_legend(uniq_words, t):
         str = "%s - %s time(s)" % (key,val)
         t.write(str)
         step += 30
-
-
-
-
 
 def draw_sectors(str, t):
     draw_title(str, t)
@@ -105,7 +97,6 @@ def draw_sectors(str, t):
         t.circle(CIRCLE_RADIUS, current_perc)
     draw_legend(get_uniq_words(str), t)
 
-
 def draw_rays(str, t):
     draw_title(str, t)
     str = str.lower()
@@ -127,7 +118,6 @@ def draw_rays(str, t):
             t.circle(RAYS_CIRCLE_RADIUS)
         t.penup()
     draw_legend(get_uniq_words(str), t)
-
 
 def init(INPUT_STR):
     args = parser.parse_args()
@@ -151,8 +141,6 @@ def init(INPUT_STR):
         turtle.exitonclick()
     else:
         print("Please set correct type of nonlinear transformation\nFor get help run this scripts with parameter -h")
-
-
 
 
 if __name__ == "__main__":
