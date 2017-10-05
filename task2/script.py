@@ -7,7 +7,7 @@ parser.add_argument('-t', '--type', help='Type of nonlinear transformation.Avail
                                          'sectors, rays', required=True)
 parser.add_argument('-s', '--string', help='String of type \'sting more\' . Default value is: \'Hello world python cool hello\'')
 
-INPUT_STR = "Hello world python cool hello"
+DEFAULT_STRING = "Hello world python cool hello"
 CIRCLE_RADIUS = 100
 TITLE_X = -300
 TITLE_Y = 250
@@ -21,6 +21,7 @@ MAX_DEGREE = 360
 COLORS = ["red", "green", "blue", "orange", "violet", "yellow", "brown"]
 RAYS_LEN = 100
 RAYS_CIRCLE_RADIUS = 2
+
 
 def get_uniq_words(text):
     words_count = {}
@@ -119,29 +120,24 @@ def draw_rays(str, t):
         t.penup()
     draw_legend(get_uniq_words(str), t)
 
-def init(INPUT_STR):
+METHOD_BY_TYPE = {
+    'sectors': draw_sectors,
+    'rays': draw_rays
+}
+
+def init():
+
     args = parser.parse_args()
     type_draw = args.type  # set type of nonlinear transformation
-    string_word = args.string
-    if string_word:
-        INPUT_STR = args.string
-
-    draw = dict(sectors=draw_sectors, rays=draw_rays)
+    input_str = args.string if args.string else DEFAULT_STRING
 
     if type_draw in ('sectors', 'rays'):
-
-        Turtle = turtle.Turtle()
-
-        if type_draw == 'sectors':
-            draw['sectors'](INPUT_STR, Turtle)
-
-        if type_draw == 'rays':
-                draw['rays'](INPUT_STR, Turtle)
-
+        METHOD_BY_TYPE[type_draw](input_str, turtle.Turtle())
         turtle.exitonclick()
     else:
-        print("Please set correct type of nonlinear transformation\nFor get help run this scripts with parameter -h")
+        print('''Please set correct type of nonlinear transformation
+                For get help run this scripts with parameter -h''')
 
 
 if __name__ == "__main__":
-    init(INPUT_STR)
+    init()

@@ -6,7 +6,6 @@ import argparse
 """
  parse args for run program
 """
-
 parser = argparse.ArgumentParser(description="For this you can use only this arguments")
 parser.add_argument('-t', '--type', help='Type of nonlinear transformation.Available types:\n'
                                          'sinus, heart, spherical, polar, disk', required=True)
@@ -16,12 +15,11 @@ parser.add_argument('-p', '--points_count', type=int,
 
 class MainCalculate:
 
-    def __init__(self, turtle, x = 0, y = 0):
+    def __init__(self, turtle, x=0, y=0):
         self.turtle = turtle
         self.x = x
         self.y = y
         self.amp = 120
-
 
     def draw_m(self, x, y):
         self.turtle.penup()
@@ -91,15 +89,17 @@ class Coordiate:
     def get(self):
         return self.get_x(), self.get_y()
 
+def calculate(win, my_turtle, f_type, iter_num, points_count):
+    calculate = MainCalculate(my_turtle)
+
+    win.bgcolor("#c5f079")
+
 
 def main():
-
     """
     parse arguments and set values for vars
     """
     args = parser.parse_args()
-
-
 
 
 
