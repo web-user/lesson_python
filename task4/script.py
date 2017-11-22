@@ -4,7 +4,7 @@ import math
 import argparse
 
 """
- parse args for run program
+parse args for run program
 """
 parser = argparse.ArgumentParser(description="For this you can use only this arguments")
 parser.add_argument('-t', '--type', help='Type of nonlinear transformation.Available types:\n'
@@ -32,8 +32,8 @@ class MainCalculate:
         self.turtle.pendown()
         self.turtle.fd(5)
 
-    def get_color(self):
-        return random.randint(0, 150), random.randint(0, 150), random.randint(0, 150)
+    def get_color(self, rr, gg, bb):
+        return self.turtle.pencolor(rr, gg, bb)
 
     def sinus(self, x, y):
         self.x = math.sin(x) * self.amp
@@ -41,8 +41,8 @@ class MainCalculate:
         self.draw_m(self.x, self.y)
 
     def heart(self, x, y):
-        self.x = (math.sqrt(x * x + y * y) * math.sin(math.sqrt(x * x + y * y) * math.atan(y/x))) * self.amp
-        self.y = (-math.sqrt(x * x + y * y) * math.cos(math.sqrt(x * x + y * y) * math.atan(y/x))) * self.amp
+        self.x = (math.sqrt(x*x + y*y) * math.sin(math.sqrt(x*x + y*y) * math.atan(y/x))) * self.amp
+        self.y = (-math.sqrt(x*x + y*y) * math.cos(math.sqrt(x*x + y*y) * math.atan(y/x))) * self.amp
         self.draw_m(self.x, self.y)
 
     def spherical(self, x, y):
@@ -60,7 +60,8 @@ class MainCalculate:
         self.y = ((1/math.pi) * math.atan(y/x) * math.cos(math.pi * math.sqrt(x*x + y*y))) * self.amp
         self.draw_m(self.x, self.y)
 
-    def call_draw(self, f_type, x, y):
+    def call_draw(self, f_type, x, y, rr, gg, bb):
+        self.get_color(rr, gg, bb)
         getattr(self, f_type)(x, y)
 
 
@@ -72,27 +73,45 @@ class Figure:
         self.e = random.uniform(self.b * self.b, 1.0)
         self.c = random.uniform(-1.5, 1.5)
         self.f = random.uniform(-1.5, 1.5)
+        self.rr = random.randint(0, 150)
+        self.gg = random.randint(0, 150)
+        self.bb = random.randint(0, 150)
 
 
-class Coordiate:
-    def __init__(self, fig, new_x, new_y):
+class Coordiate(MainCalculate):
+    def __init__(self, fig, f_type, turtle):
+        self.turtle = turtle
+        self.f_type = f_type
         self.fig = fig
-        self.new_x = new_x
-        self.new_y = new_y
+        self.new_x = random.uniform(XMIN, XMAX)
+        self.new_y = random.uniform(YMIN, YMAX)
+        super().__init__(self.turtle)
 
     def get_x(self):
-        return self.fig.a * self.new_x + self.fig.b * self.new_y + self.fig.c
+        return self.fig.a*self.new_x + self.fig.b*self.new_y + self.fig.c
 
     def get_y(self):
-        return  self.fig.d * self.new_x + self.fig.e * self.new_y + self.fig.f
+        return  self.fig.d*self.new_x + self.fig.e*self.new_y + self.fig.f
 
     def get(self):
-        return self.get_x(), self.get_y()
+        return super(Coordiate, self).call_draw(self.f_type,  self.get_x(), self.get_y(), self.fig.rr, self.fig.gg, self.fig.bb)
 
 def calculate(win, my_turtle, f_type, iter_num, points_count):
-    calculate = MainCalculate(my_turtle)
 
-    win.bgcolor("#c5f079")
+    win.bgcolor("#f7ffea")
+
+    for i in range(iter_num):
+        """
+        generate coefficients for affine transformation
+        """
+        fig = Figure()
+
+        # run calculations and drawing
+        for j in range(points_count):
+            """
+            generate x & y for nonlinear transformation
+            """
+            Coordiate(fig, f_type, my_turtle).get()
 
 
 def main():
@@ -100,7 +119,32 @@ def main():
     parse arguments and set values for vars
     """
     args = parser.parse_args()
+    f_type = args.type  # set type of nonlinear transformation
 
+    # set number of iterations
+    if args.iter_num:
+        iter_num = args.iter_num
+    else:
+        iter_num = 7
+
+    # set points count for 1 iteration
+    if args.points_count:
+        points_count = args.points_count
+    else:
+        points_count = 150
+
+    # check type of nonlinear transformation
+    if f_type in ("sinus", "heart", "spherical", "polar", "disk"):
+        win = turtle.Screen()
+        my_turtle = turtle.Turtle()
+        my_turtle.screen.colormode(255)
+        my_turtle.speed(0)
+
+        # call function for draw fractal flame
+        calculate(win, my_turtle, f_type, iter_num, points_count)
+        win.exitonclick()
+    else:
+        print("Please set correct type of nonlinear transformation\nFor get help run this scripts with parameter -h")
 
 
 if __name__ == '__main__':
