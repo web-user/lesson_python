@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+
+class Transaction:
+    def __init__(self, amount, date, currency, usd_conversion_rate = 1, description = None):
+        self.__amount = amount
+        self.__date = date
+        self.__currency = currency
+        self.__usd = usd_conversion_rate * amount
+
+    def withdraw(self, amount):
+        assert amount > 0 , "must be nonzero"
+        self._amount = amount
+
+
+class Account(Transaction):
+    def __init__(self, account_number):
+        self.__account_number = account_number
+        
+
+    # def__init__(self, width, height, filename="", background="#FFFFFF"):
+    #     self.ilename = filename
+    #     self.__background = background
+    #     self.__data = {}
+    #     self.__width = width
+    #     self.__height = height
+    #     self.__colors = {self.__background}
+
+    # def save(self, filename=None):
+    #     if filename is not None:
+    #         self.filename = filename
+    #     if not self.filename:
+    #         raise NoFilenameErrorO
+    #     fh = None
+    #     try:
+    #         data = [self.width, self, height, self .__background, self .„data]
+    #         fh = open(self.filename, "wb")
+    #         pickle.dump(data, fh, pickle.HIGHEST_PR0T0C0L)
+    #     except (EnvironmentError, pickle.PicklingError) as err:
+    #         raise SaveError(str(err))
+    #     finally:
+    #         if fh is not None:
+    #             fh.close()
