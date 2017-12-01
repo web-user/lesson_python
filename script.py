@@ -57,15 +57,13 @@ def funct_dec(number):
 
 print(funct_dec(3))
 
-from abc import *
 
-class SchoolMember(metaclass=ABCMeta):
+class SchoolMember:
     '''Представляет любого человека в школе.'''
     def __init__(self, name, age):
         self.name = name
         self.age = age
 
-    @abstractmethod
     def tell(self):
         """display information"""
         return 'Name:"{0}" Age:"{1}"'.format(self.name, self.age)
@@ -78,22 +76,22 @@ class Teacher(SchoolMember):
         self.salary = salary
 
     def tell(self):
-        super().tell()
-        return 'Salary: "{0:d}"'.format(self.salary)
+        return super().tell(), 'Salary: "{0:d}"'.format(self.salary)
 
 
 class Student(SchoolMember):
     """Represents a studenr"""
     def __init__(self, name, age, marks):
-        super().__init__(name, age)
         self.marks = marks
+        super().__init__(name, age)
 
     def tell(self):
-        super().tell()
-        return 'Marks: {0:d}'.format(self.marks)
+        return [super().tell(), 'Marks: {0:d}'.format(self.marks)]
 
 t = Teacher('Mrs, Shriv', 40, 30000)
 s = Student('Swaroop', 25, 75)
+
+print(t.tell())
 
 members = [t, s]
 
