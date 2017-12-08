@@ -1,5 +1,6 @@
 import time
 import itertools
+import datetime
 
 class BaseWeapon:
 
@@ -13,11 +14,19 @@ class BaseWeapon:
     magazine_size = 7
     # how long it takes to recharge in seconds
     reload_time = 2
+    time_history = 0
 
     def shoot(self, enemy):
-        # time.sleep(shoot_interval) 
-        time.sleep(self.shoot_interval) 
-        return enemy.hit_points - self.damage
+        # time.sleep(self.shoot_interval) 
+        now_time = time.time()
+        print(now_time - self.time_history, self.shoot_interval)
+        if now_time - self.time_history >= self.shoot_interval:
+            print('-------TIME--------')
+            self.time_history = now_time
+            return enemy.hit_points - self.damage
+       
+        return enemy.hit_points
+        
 
 
 class Shotgun(BaseWeapon):
@@ -41,16 +50,14 @@ class Enemy:
         self.hit_points = hit_points
 
     @property
-    def is_dead(self):
-        if self.hit_points:
+    def is_alive(self):
+        if self.hit_points != 0 or self.hit_points > 0:
             return True
         else:
             return False
 
-
 enemy_spotted = Enemy(200)
 weapon = Shotgun()
-
 
 array_enemy = []
 
@@ -64,23 +71,27 @@ for b in range(2):
     weapon = Shotgun()
     array_weapon.append(weapon)
 
-print(array_weapon)
-
-list_objeect = [array_enemy, array_weapon]
 
 size = weapon.magazine_size
 
-for item_enemy, item_weapon in itertools.product(*list_objeect):
-    while item_enemy.is_dead:
-        step = item_weapon.shoot(item_enemy)
-        print(step)
-        item_enemy.hit_points = step
-        size -= 1
-        if size == 0:
-            # the number of cartridges, when you need to recharge
-            size = item_weapon.magazine_size -1
-            # how long it takes to recharge in seconds
-            time.sleep(item_weapon.reload_time) 
-        print(size)
-        print('--------------------------------------------')
+counter = 0
 
+
+for item_enemy in array_enemy:
+    while item_enemy.is_alive:
+        if counter > 50:
+            exit()
+        counter += 1
+        for item_weapon in array_weapon:
+            step = item_weapon.shoot(item_enemy)
+            print(step)
+            item_enemy.hit_points = step
+            size -= 1
+            if size == 0:
+                # the number of cartridges, when you need to recharge
+                size = item_weapon.magazine_size -1
+                # how long it takes to recharge in seconds
+                # time.sleep(item_weapon.reload_time) 
+            print(size)
+            print('--------------------------------------------')
+            
