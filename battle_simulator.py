@@ -17,7 +17,6 @@ class BaseWeapon:
     # how long it takes to recharge in seconds
     reload_time = 2
 
-
     def shoot(self, enemy):
         # time.sleep(self.shoot_interval) 
         now_time = time.time()
@@ -26,9 +25,8 @@ class BaseWeapon:
             print('-------TIME--------')
             self.time_history = now_time
             return enemy.hit_points - self.damage
-       
         return enemy.hit_points
-        
+
 
 
 class Shotgun(BaseWeapon):
