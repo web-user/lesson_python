@@ -4,6 +4,8 @@ import datetime
 
 class BaseWeapon:
 
+    def __init__(self):
+        self.time_history = 0
     # how much health takes away from the opponent in case of a successful hit
     damage = 25
     # interval between shots in seconds
@@ -14,7 +16,7 @@ class BaseWeapon:
     magazine_size = 7
     # how long it takes to recharge in seconds
     reload_time = 2
-    time_history = 0
+
 
     def shoot(self, enemy):
         # time.sleep(self.shoot_interval) 
@@ -71,18 +73,15 @@ for b in range(2):
     weapon = Shotgun()
     array_weapon.append(weapon)
 
-
 size = weapon.magazine_size
 
 counter = 0
 
-
 for item_enemy in array_enemy:
     while item_enemy.is_alive:
         for item_weapon in array_weapon:
-            step = item_weapon.shoot(item_enemy)
-            print(step)
-            item_enemy.hit_points = step
+            print(item_weapon.shoot(item_enemy))
+            item_enemy.hit_points = item_weapon.shoot(item_enemy)
             size -= 1
             if size == 0:
                 # the number of cartridges, when you need to recharge
@@ -91,4 +90,3 @@ for item_enemy in array_enemy:
                 # time.sleep(item_weapon.reload_time) 
             print(size)
             print('--------------------------------------------')
-            
