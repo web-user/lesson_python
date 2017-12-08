@@ -79,9 +79,6 @@ counter = 0
 
 for item_enemy in array_enemy:
     while item_enemy.is_alive:
-        if counter > 50:
-            exit()
-        counter += 1
         for item_weapon in array_weapon:
             step = item_weapon.shoot(item_enemy)
             print(step)
