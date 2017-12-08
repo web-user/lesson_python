@@ -28,7 +28,6 @@ class BaseWeapon:
         return enemy.hit_points
 
 
-
 class Shotgun(BaseWeapon):
     damage = 50
     shoot_interval = 1.5
