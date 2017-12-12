@@ -6,7 +6,7 @@ class BaseWeapon:
 
     def __init__(self):
         self.time_history = 0
-        self.count_ammo = 0
+        self.count_ammo = 1
     # how much health takes away from the opponent in case of a successful hit
     damage = 25
     # interval between shots in seconds
@@ -78,12 +78,10 @@ for b in range(2):
     weapon = Shotgun()
     array_weapon.append(weapon)
 
-size = weapon.magazine_size
-
 for item_enemy in array_enemy:
     while item_enemy.is_alive:
         for item_weapon in array_weapon:
             item_weapon.shoot(item_enemy)
-            item_weapon.recharge(size)
+            item_weapon.recharge()
             print(item_enemy.hit_points)
             print('--------------------------------------------')
