@@ -26,7 +26,6 @@ class BaseWeapon:
             print('-------TIME--------')
             self.time_history = now_time
             enemy.hit_points = enemy.hit_points - self.damage
-        time.sleep(self.shoot_interval) 
 
     def recharge(self):
         self.count_ammo -= 1
