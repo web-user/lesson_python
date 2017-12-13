@@ -4,9 +4,7 @@ import termios
 from random import randint
 from logic import *
 
-SIZE = 500
 GRID_LEN = 4
-GRID_PADDING = 10
 
 class GetCh:
     def __call__(self):
@@ -40,7 +38,6 @@ class Game(LogicGame):
                             board[item][-1] = '1'
                     else:
                         board[item][-1] = 'O'
-
 
 
 class GameGrid(LogicGame):
