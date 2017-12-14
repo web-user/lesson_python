@@ -62,46 +62,46 @@ class GameSettings:
 
 
     def up(self, game):
-            print("up")
-            # return matrix after shifting up
-            game = self.transpose(game)
-            game, self.done = self.cover_up(game)
-            temp = self.merge(game)
-            game=temp[0]
-            self.done=self.done or temp[1]
-            game = self.cover_up(game)[0]
-            game = self.transpose(game)
-            return game
+        print("up")
+        # return matrix after shifting up
+        game = self.transpose(game)
+        game, self.done = self.cover_up(game)
+        temp = self.merge(game)
+        game=temp[0]
+        self.done=self.done or temp[1]
+        game = self.cover_up(game)[0]
+        game = self.transpose(game)
+        return game
 
     def down(self, game):
-            print("down")
-            game = self.reverse(self.transpose(game))
-            game, self.done = self.cover_up(game)
-            temp = self.merge(game)
-            game=temp[0]
-            self.done=self.done or temp[1]
-            game = self.cover_up(game)[0]
-            game = self.transpose(self.reverse(game))
-            return game
+        print("down")
+        game = self.reverse(self.transpose(game))
+        game, self.done = self.cover_up(game)
+        temp = self.merge(game)
+        game=temp[0]
+        self.done=self.done or temp[1]
+        game = self.cover_up(game)[0]
+        game = self.transpose(self.reverse(game))
+        return game
 
     def left(self, game):
-            print("left")
-            # return matrix after shifting left
-            game, self.done = self.cover_up(game)
-            temp = self.merge(game)
-            game = temp[0]
-            self.done = self.done or temp[1]
-            game = self.cover_up(game)[0]
-            return game
+        print("left")
+        # return matrix after shifting left
+        game, self.done = self.cover_up(game)
+        temp = self.merge(game)
+        game = temp[0]
+        self.done = self.done or temp[1]
+        game = self.cover_up(game)[0]
+        return game
 
     def right(self, game):
-            print("right")
-            # return matrix after shifting right
-            game = self.reverse(game)
-            game, self.done = self.cover_up(game)
-            temp = self.merge(game)
-            game = temp[0]
-            self.done = self.done or temp[1]
-            game = self.cover_up(game)[0]
-            game = self.reverse(game)
-            return game
+        print("right")
+        # return matrix after shifting right
+        game = self.reverse(game)
+        game, self.done = self.cover_up(game)
+        temp = self.merge(game)
+        game = temp[0]
+        self.done = self.done or temp[1]
+        game = self.cover_up(game)[0]
+        game = self.reverse(game)
+        return game
