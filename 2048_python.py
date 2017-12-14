@@ -8,7 +8,10 @@ from game_settings import *
 GRID_LEN = 4
 
 class GetCh:
-    def __call__(self):
+    def __init__(self):
+        self.key = ''
+
+    def get_key(self):
         fd = sys.stdin.fileno()
         old_settings = termios.tcgetattr(fd)
         try:
@@ -17,6 +20,12 @@ class GetCh:
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
         return ch
+
+    def set_key(self):
+        while(1):
+            self.key = self.get_key()
+            if self.key != '' :break
+        return self.key
 
 
 class Game(GameSettings):
@@ -35,34 +44,28 @@ class Game(GameSettings):
         self.matrix = self.add_two(self.matrix)
         return self.matrix
 
-def get():
+def main():
     inkey = GetCh()
 
     gamegrid = Game()
 
-    while(1):
-        key = inkey()
-        if key != '' :break
-    if key == '\x1b[A':
-        gamegrid.iteration_list(gamegrid.update_grid_cells(gamegrid.up(gamegrid.matrix)))
-        print("up")
-    elif key == '\x1b[B':
-        gamegrid.iteration_list(gamegrid.update_grid_cells(gamegrid.down(gamegrid.matrix)))
-        print("down")
-    elif key == '\x1b[C':
-        gamegrid.iteration_list(gamegrid.update_grid_cells(gamegrid.right(gamegrid.matrix)))
-    elif key == '\x1b[D':
-        # start_game.move_set(board, 'left')
-        gamegrid.iteration_list(gamegrid.update_grid_cells(gamegrid.left(gamegrid.matrix)))
-        # print("left")
-    else:
-        print("not an arrow key!")
-        exit()
-
-
-def main():
-    for i in range(0,20):
-        get()
+    while True:
+        item_key = inkey.set_key()
+        if item_key == '\x1b[A':
+            gamegrid.iteration_list(gamegrid.update_grid_cells(gamegrid.up(gamegrid.matrix)))
+            print("up")
+        elif item_key == '\x1b[B':
+            gamegrid.iteration_list(gamegrid.update_grid_cells(gamegrid.down(gamegrid.matrix)))
+            print("down")
+        elif item_key == '\x1b[C':
+            gamegrid.iteration_list(gamegrid.update_grid_cells(gamegrid.right(gamegrid.matrix)))
+        elif item_key == '\x1b[D':
+            # start_game.move_set(board, 'left')
+            gamegrid.iteration_list(gamegrid.update_grid_cells(gamegrid.left(gamegrid.matrix)))
+            # print("left")
+        else:
+            print("not an arrow key!")
+            exit()
 
 if __name__=='__main__':
     main()

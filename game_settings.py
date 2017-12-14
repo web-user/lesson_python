@@ -17,7 +17,7 @@ class GameSettings:
     def add_two(self, mat):
         a=randint(0,len(mat)-1)
         b=randint(0,len(mat)-1)
-        while(mat[a][b]!=0):
+        while mat[a][b] != 0 :
             a=randint(0,len(mat)-1)
             b=randint(0,len(mat)-1)
         mat[a][b]=2
@@ -44,8 +44,8 @@ class GameSettings:
         for i in range(4):
             count=0
             for j in range(4):
-                if mat[i][j]!=0:
-                    new[i][count]=mat[i][j]
+                if mat[i][j] != 0:
+                    new[i][count] = mat[i][j]
                     if j!=count:
                         self.done=True
                     count+=1
