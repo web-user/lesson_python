@@ -22,7 +22,7 @@ class GetCh:
         return ch
 
     def set_key(self):
-        while(1):
+        while 1:
             self.key = self.get_key()
             if self.key != '' :break
         return self.key
