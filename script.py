@@ -1,255 +1,193 @@
-# import unittest
-# import time
-# from selenium import webdriver
-# from selenium.webdriver.common.keys import Keys
 #
-# class PythonLogin(unittest.TestCase):
+# CS1010FC --- Programming Methodology
 #
-#     def setUp(self):
-#         self.driver = webdriver.Chrome()
+# Mission N Solutions
 #
-#     def test_in_python_org(self):
-#         driver = self.driver
-#         driver.get("http://@staging-app-2.sourcebreaker.com/")
-#         self.assertIn("SourceBreaker", driver.title)
-#         username = driver.find_element_by_xpath("//input[@name='email']")
-#         username.send_keys("levchenko.amgrade@gmail.com")
-#         password = driver.find_element_by_xpath("//input[@name='password']")
-#         password.send_keys("1")
-#         loginbutton = driver.find_element_by_xpath("//input[@type='submit']")
-#         loginbutton.click()
-#         assert "No results found." not in driver.page_source
-#         time.sleep(5)
-#
-#
-#     def tearDown(self):
-#         self.driver.close()
-#
-# if __name__ == "__main__":
-#     unittest.main()
-import time
-
-
-def decorator(f):
-    def wrapper(*args, **kwargs):
-        start_time = time.time()
-        print("--- {} time ---".format(time.time() - start_time))
-        return f(*args, **kwargs)
-    return wrapper
-
-@decorator
-def example(x):
-    print('Called example function and param: ', x)
-
-example(42)
-
-def decorator(argument):
-    def real_decorator(function):
-        def wrapper(*args, **kwargs):
-            return function(*args, **kwargs) ** argument
-        return wrapper
-    return real_decorator
-
-
-@decorator(2)
-def funct_dec(number):
-    return number
-
-print(funct_dec(3))
-
-
-class SchoolMember:
-    '''Представляет любого человека в школе.'''
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-
-    def tell(self):
-        """display information"""
-        return 'Name:"{0}" Age:"{1}"'.format(self.name, self.age)
-
-
-class Teacher(SchoolMember):
-    """Represents a teacher"""
-    def __init__(self, name, age, salary):
-        super().__init__(name, age)
-        self.salary = salary
-
-    def tell(self):
-        return super().tell(), 'Salary: "{0:d}"'.format(self.salary)
-
-
-class Student(SchoolMember):
-    """Represents a studenr"""
-    def __init__(self, name, age, marks):
-        self.marks = marks
-        super().__init__(name, age)
-
-    def tell(self):
-        return [super().tell(), 'Marks: {0:d}'.format(self.marks)]
-
-t = Teacher('Mrs, Shriv', 40, 30000)
-s = Student('Swaroop', 25, 75)
-
-print(t.tell())
-
-members = [t, s]
-
-for member in members:
-    print(member.tell())
-
-
-
-class BankAccount:
-    def __init__(self):
-        self.balance = 0
-
-    def withdraw(self, amount):
-        self.balance -= amount
-        return self.balance
-
-    def deposit(self, amount):
-        self.balance += amount
-        return self.balance
-
-class MinimumBalanceAccount(BankAccount):
-    def __init__(self, minimum_balance):
-        BankAccount.__init__(self)
-        self.minimum_balance = minimum_balance
-
-    def withdraw(self, amount):
-        if self.balance - amount < self.minimum_balance:
-            print('Sorry, minimum balance must be maintained.')
-        else:
-            BankAccount.withdraw(self, amount)
-
-# class multifilter:
-#     def judge_half(pos, neg):
-#         # допускает элемент, если его допускает хотя бы половина фукнций (pos >= neg)
-#         return True if pos >= neg else False
-
-#     def judge_any(pos, neg):
-#         # допускает элемент, если его допускает хотя бы одна функция (pos >= 1)
-#         return True if pos >= 1 else False
-
-#     def judge_all(pos, neg):
-#         # допускает элемент, если его допускают все функции (neg == 0)
-#         return True if neg == 0 else False
-
-#     def _construct_result(self, iterable, funcs, judge):
-#         for elem in iterable:
-#             pos = 0
-#             neg = 0
-#             for f in funcs:
-#                 if f(elem):
-#                     pos += 1
-#                 else:
-#                     neg += 1
-
-#             if judge(pos, neg):
-#                 self.result_iter.append(elem)
-
-#     def __init__(self, iterable, *funcs, judge=judge_any):
-#         # iterable - исходная последовательность
-#         # funcs - допускающие функции
-#         # judge - решающая функция
-#         self.result_iter = []
-
-#         self._construct_result(iterable, funcs, judge)
-
-#     def __iter__(self):
-#         return iter(self.result_iter)
-
-# def test():
-#     def mul2(x):
-#         return x % 2 == 0
-
-#     def mul3(x):
-#         return x % 3 == 0
-
-#     def mul5(x):
-#         return x % 5 == 0
-
-
-#     a = [i for i in range(31)] # [0, 1, 2, ... , 30]
-
-#     assert list(multifilter(a, mul2, mul3, mul5)) == [0, 2, 3, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 22, 24, 25, 26, 27, 28, 30]
-#     assert list(multifilter(a, mul2, mul3, mul5, judge=multifilter.judge_half)) == [0, 6, 10, 12, 15, 18, 20, 24, 30]
-#     assert list(multifilter(a, mul2, mul3, mul5, judge=multifilter.judge_all)) == [0, 30]
-
-# if __name__ == "__main__":
-#     test()
-
-# import json
-# import requests
-# r = requests.get('https://jsonplaceholder.typicode.com/posts/2')
-
-# v = r.json()
-# print(v)
-# print(v['title'])
-
-import json
-import requests
-import re
-
-# url = 'https://jsonplaceholder.typicode.com/users'
-
-# users
-# number 1
-
-# params = dict(
-#     name='users',
-#     destination='1'
-# )
-
-# resp = requests.get(url)
-# data = resp.json()
-
-# print(data)
-
-# url = 'https://jsonplaceholder.typicode.com/users'
-
-# params = dict(
-#     origin='1',
-# )
-
-# >>> payload = (('key1', 'value1'), ('key2', 'value2'), ('key3', 'value3'))
-# >>> r = requests.get("http://httpbin.org/get", params=payload)
-# >>> print r.json()['url']
-
-
-# my_url = 'https://jsonplaceholder.typicode.com/' + 'users/' + '1'
-
-# # yourparams = {'s' : 'value1', 'f': 'value2'}
-# test = requests.get(my_url)
-
-
-# def get_links(chat_string):
-#     pattern = '(?:https?:\/\/)?(?:[\w\.]+)\.(?:[a-z]{2,6}\.?)(?:\/[\w\.]*)*\/?' 
-#     return re.findall(pattern, chat_string)
-
-# links = test.json()
-# print(links['phone'])
-
-# url_post = 'https://jsonplaceholder.typicode.com/posts'
-
-
-# param_post = {'_page' : '3', '_limit' : '1'}
-
-# get_post = requests.get(url_post, params=param_post)
-
-# res = get_post.json()
-
-# print(res)
-
-
-class MiniBlog:
-    def __init__(self, posts, users):
-        self.posts = posts
-        self.users = users
-
-
-
-
-
-# print(json.dumps('https://jsonplaceholder.typicode.com/posts/1'))
+# Note that written answers are commented out to allow us to run your
+# code easily while grading your problem set.
+from random import *
+
+#######
+#Task 1a#
+#######
+
+# [Marking Scheme]
+# Points to note:
+# Matrix elements must be equal but not identical
+# 1 mark for creating the correct matrix
+
+def new_game(n):
+    matrix = []
+
+    for i in range(n):
+        matrix.append([0] * n)
+    return matrix
+
+###########
+# Task 1b #
+###########
+
+# [Marking Scheme]
+# Points to note:
+# Must ensure that it is created on a zero entry
+# 1 mark for creating the correct loop
+
+def add_two(mat):
+    a=randint(0,len(mat)-1)
+    b=randint(0,len(mat)-1)
+    while(mat[a][b]!=0):
+        a=randint(0,len(mat)-1)
+        b=randint(0,len(mat)-1)
+    mat[a][b]=2
+    return mat
+
+###########
+# Task 1c #
+###########
+
+# [Marking Scheme]
+# Points to note:
+# Matrix elements must be equal but not identical
+# 0 marks for completely wrong solutions
+# 1 mark for getting only one condition correct
+# 2 marks for getting two of the three conditions
+# 3 marks for correct checking
+
+def game_state(mat):
+    for i in range(len(mat)):
+        for j in range(len(mat[0])):
+            if mat[i][j]==2048:
+                return 'win'
+    for i in range(len(mat)-1): #intentionally reduced to check the row on the right and below
+        for j in range(len(mat[0])-1): #more elegant to use exceptions but most likely this will be their solution
+            if mat[i][j]==mat[i+1][j] or mat[i][j+1]==mat[i][j]:
+                return 'not over'
+    for i in range(len(mat)): #check for any zero entries
+        for j in range(len(mat[0])):
+            if mat[i][j]==0:
+                return 'not over'
+    for k in range(len(mat)-1): #to check the left/right entries on the last row
+        if mat[len(mat)-1][k]==mat[len(mat)-1][k+1]:
+            return 'not over'
+    for j in range(len(mat)-1): #check up/down entries on last column
+        if mat[j][len(mat)-1]==mat[j+1][len(mat)-1]:
+            return 'not over'
+    return 'lose'
+
+###########
+# Task 2a #
+###########
+
+# [Marking Scheme]
+# Points to note:
+# 0 marks for completely incorrect solutions
+# 1 mark for solutions that show general understanding
+# 2 marks for correct solutions that work for all sizes of matrices
+
+def reverse(mat):
+    new=[]
+    for i in range(len(mat)):
+        new.append([])
+        for j in range(len(mat[0])):
+            new[i].append(mat[i][len(mat[0])-j-1])
+    return new
+
+###########
+# Task 2b #
+###########
+
+# [Marking Scheme]
+# Points to note:
+# 0 marks for completely incorrect solutions
+# 1 mark for solutions that show general understanding
+# 2 marks for correct solutions that work for all sizes of matrices
+
+def transpose(mat):
+    new=[]
+    for i in range(len(mat[0])):
+        new.append([])
+        for j in range(len(mat)):
+            new[i].append(mat[j][i])
+    return new
+
+##########
+# Task 3 #
+##########
+
+# [Marking Scheme]
+# Points to note:
+# The way to do movement is compress -> merge -> compress again
+# Basically if they can solve one side, and use transpose and reverse correctly they should
+# be able to solve the entire thing just by flipping the matrix around
+# No idea how to grade this one at the moment. I have it pegged to 8 (which gives you like,
+# 2 per up/down/left/right?) But if you get one correct likely to get all correct so...
+# Check the down one. Reverse/transpose if ordered wrongly will give you wrong result.
+
+def cover_up(mat):
+    new=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+    done=False
+    for i in range(4):
+        count=0
+        for j in range(4):
+            if mat[i][j]!=0:
+                new[i][count]=mat[i][j]
+                if j!=count:
+                    done=True
+                count+=1
+    return (new,done)
+
+def merge(mat):
+    done=False
+    for i in range(4):
+         for j in range(3):
+             if mat[i][j]==mat[i][j+1] and mat[i][j]!=0:
+                 mat[i][j]*=2
+                 mat[i][j+1]=0
+                 done=True
+    return (mat,done)
+
+
+def up(game):
+        print("up")
+        # return matrix after shifting up
+        game=transpose(game)
+        game,done=cover_up(game)
+        temp=merge(game)
+        game=temp[0]
+        done=done or temp[1]
+        game=cover_up(game)[0]
+        game=transpose(game)
+        return (game,done)
+
+def down(game):
+        print("down")
+        game=reverse(transpose(game))
+        game,done=cover_up(game)
+        temp=merge(game)
+        game=temp[0]
+        done=done or temp[1]
+        game=cover_up(game)[0]
+        game=transpose(reverse(game))
+        return (game,done)
+
+def left(game):
+        print("left")
+        # return matrix after shifting left
+        game,done=cover_up(game)
+        temp=merge(game)
+        game=temp[0]
+        done=done or temp[1]
+        game=cover_up(game)[0]
+        return (game,done)
+
+def right(game):
+        print("right")
+        # return matrix after shifting right
+        game=reverse(game)
+        game,done=cover_up(game)
+        temp=merge(game)
+        game=temp[0]
+        done=done or temp[1]
+        game=cover_up(game)[0]
+        game=reverse(game)
+        return (game,done)

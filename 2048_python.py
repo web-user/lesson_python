@@ -2,7 +2,7 @@ import sys
 import tty
 import termios
 from random import randint
-from logic import *
+from game_settings import *
 
 GRID_LEN = 4
 
@@ -18,29 +18,7 @@ class GetCh:
         return ch
 
 
-class Game(LogicGame):
-    def set_random_number(self, board):
-        for i in range(2):
-            guess_row = randint(0, len(board) - 1)
-            guess_col = randint(0, len(board[0]) - 1)
-            board[guess_col][guess_row] = "2"
-
-    def move_set(self, board, move = ''):
-        guess_row = len(board) - 1
-        guess_col = len(board[0]) - 1
-        for item, number_list in enumerate(board):
-                if "2" in number_list:
-                    print(board[item])
-                    if board[item][-1] == "2":
-                        if move == 'left':
-                            board[item][0] = '1'
-                        elif move == 'right':
-                            board[item][-1] = '1'
-                    else:
-                        board[item][-1] = 'O'
-
-
-class GameGrid(LogicGame):
+class Game(GameSettings):
     def __init__(self):
         super().__init__()
         self.init_matrix()
@@ -63,21 +41,13 @@ class GameGrid(LogicGame):
             for j in range(GRID_LEN):
                 new_number = self.matrix[i][j]
 
-    def generate_next(self):
-        index = (self.gen(), self.gen())
-        while self.matrix[index[0]][index[1]] != 0:
-            index = (self.gen(), self.gen())
-        self.matrix[index[0]][index[1]] = 2
-
-
-
 
 def get():
     inkey = GetCh()
 
-    start_game = Game()
+    # start_game = Game()
 
-    gamegrid = GameGrid()
+    gamegrid = Game()
 
     print(gamegrid.new_number)
 
@@ -87,34 +57,34 @@ def get():
         # print("".join(str(row)))
 
 
-    board = []
+    # board = []
 
-    for x in range(4):
-        board.append(["X"] * 4)
+    # for x in range(4):
+    #     board.append(["X"] * 4)
 
-    start_game.set_random_number(board)
+    # start_game.set_random_number(board)
 
     while(1):
-        k=inkey()
-        if k!='':break
-    if k=='\x1b[A':
+        key = inkey()
+        if key != '' :break
+    if key == '\x1b[A':
+        gamegrid.iteration_list(gamegrid.up(gamegrid.matrix))
         print("up")
-    elif k=='\x1b[B':
+    elif key == '\x1b[B':
+        gamegrid.iteration_list(gamegrid.down(gamegrid.matrix))
         print("down")
-    elif k=='\x1b[C':
-        print(start_game.right(gamegrid.matrix))
-    elif k=='\x1b[D':
+    elif key == '\x1b[C':
+        gamegrid.iteration_list(gamegrid.right(gamegrid.matrix))
+    elif key == '\x1b[D':
         # start_game.move_set(board, 'left')
-        print(start_game.left(gamegrid.matrix))
+        gamegrid.iteration_list(gamegrid.left(gamegrid.matrix))
         # print("left")
-    elif k == '\x1bQ':
-        exit()
     else:
         print("not an arrow key!")
         exit()
 
-    for row in board:
-        print(" ".join(row))
+    # for row in board:
+    #     print(" ".join(row))
 
 def main():
     for i in range(0,20):

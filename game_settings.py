@@ -1,9 +1,13 @@
 from random import *
 
-class LogicGame:
+class GameSettings:
     def __init__(self):
         self.done = False
         self.matrix = []
+
+    def iteration_list(self, list_name):
+        for row in list_name:
+            print("".join(str(row)))
 
     def new_game(self, n):
         for i in range(n):
@@ -67,18 +71,18 @@ class LogicGame:
             self.done=self.done or temp[1]
             game = self.cover_up(game)[0]
             game = self.transpose(game)
-            return (game,self.done)
+            return game
 
     def down(self, game):
             print("down")
-            game = self.reverse(transpose(game))
+            game = self.reverse(self.transpose(game))
             game, self.done = self.cover_up(game)
             temp = self.merge(game)
             game=temp[0]
             self.done=self.done or temp[1]
             game = self.cover_up(game)[0]
-            game = self.transpose(reverse(game))
-            return (game, self.done)
+            game = self.transpose(self.reverse(game))
+            return game
 
     def left(self, game):
             print("left")
@@ -88,7 +92,7 @@ class LogicGame:
             game = temp[0]
             self.done = self.done or temp[1]
             game = self.cover_up(game)[0]
-            return (game, self.done)
+            return game
 
     def right(self, game):
             print("right")
@@ -100,4 +104,4 @@ class LogicGame:
             self.done = self.done or temp[1]
             game = self.cover_up(game)[0]
             game = self.reverse(game)
-            return (game, self.done)
+            return game
