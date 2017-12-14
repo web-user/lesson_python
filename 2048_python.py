@@ -46,7 +46,6 @@ class Game(GameSettings):
 
 def main():
     inkey = GetCh()
-
     gamegrid = Game()
 
     while True:
